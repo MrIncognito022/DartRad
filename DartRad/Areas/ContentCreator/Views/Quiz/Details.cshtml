@@ -1,0 +1,152 @@
+﻿@model QuizDetailsViewModel
+@using DartRad.Extensions
+@{
+    ViewBag.Title = "Quiz Details";
+}
+
+@section Styles {
+    <style>
+        .row > .card {
+            padding: 0;
+        }
+
+        img {
+            width:432px;
+            height:366px;
+            object-fit:contain;
+            border:2px solid lightgray
+        }
+    </style>
+}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="fw-bold">Quiz Details</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card col-md-8 my-4">
+            <div class="card-header">
+               <h5 class="card-title"><b>Title:</b> @Model.Title</h5>
+                <p class="card-text"><b>Clinical Scenario:</b> @Model.ClinicalScenario</p>
+            </div>
+            <div class="card-body">
+               
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 fw-bold">Category:</div>
+                            <div class="col-md-8">@Model.Category</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 fw-bold">Created At:</div>
+                            <div class="col-md-8">@Model.CreatedAt.ToString()</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 fw-bold">Updated At:</div>
+                            <div class="col-md-8">@(Model.UpdatedAt?.ToString() ?? "-")</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 fw-bold">Status:</div>
+                            <div class="col-md-8 text-capitalize">
+                                @if (Model.Status == QuizStatus.Draft)
+                                {
+                                     <span class="badge bg-secondary">@Model.Status.ToFriendlyString()</span>
+                                }
+                                else if (Model.Status == QuizStatus.WaitingForApproval)
+                                {
+                                     <span class="badge bg-warning">@Model.Status.ToFriendlyString()</span>
+                                }
+                                else if (Model.Status == QuizStatus.Approved)
+                                {
+                                      <span class="badge bg-success">@Model.Status.ToFriendlyString()</span>
+                                }
+                                else
+                                {
+                                     <span class="badge bg-danger">@Model.Status.ToFriendlyString()</span>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 fw-bold">Approved By:</div>
+                            <div class="col-md-8">@(string.IsNullOrEmpty(Model.ApprovedBy) ? "-" : Model.ApprovedBy)</div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+           <div class="card-footer">
+                <div class="d-flex flex-row justify-content-between">
+                    <a asp-controller="Quiz" asp-action="Index" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back to List</a>
+                    <div>
+                        @if (Model.Status == QuizStatus.Draft || Model.Status == QuizStatus.Rejected)
+                        {
+                            <button type="button" class="btn btn-success" title="Send For Approval" onclick="SendForApproval(this,@Model.Id)"><i class="fa fa-check-circle"></i> Send For Approval</button>
+                        }
+                          @if(Model.Status != QuizStatus.Approved)
+                            {
+                                <a asp-controller="Quiz" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                            }
+                    </div>
+                  
+                </div>
+                    
+            </div>
+        </div>
+         <div class="col-md-4 my-4">
+            @if(!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" />
+            }
+           
+         </div>
+
+
+        <div class="col-md-6 border p-3">
+            <h4>Notes</h4>
+            @if (Model.Notes.Any())
+            {
+                <ul class="list-group">
+                    @{
+                        int index = 1;
+                    }
+                    @foreach (var note in Model.Notes.OrderByDescending(x => x.CreatedAt))
+                    {
+                        index++;
+                        <div class="border px-2 my-1 @(index % 2 == 0 ? "bg-gray" : "")">
+                            <div class="d-flex flex-row justify-content-between">
+                                <strong class="text-primary">@note.AdminName</strong>
+                                <small>@note.CreatedAt.ToString("g")</small>
+                            </div>
+
+                            <p>@note.Note</p>
+                        </div>
+                    }
+                </ul>
+
+            }
+            else
+            {
+                <p>There are no notes for this quiz.</p>
+            }
+
+
+        </div>
+    </div>
+  
+    
+
+</div>
+
+@section Scripts {
+    <script src="/js/quiz/details.js"></script>
+}

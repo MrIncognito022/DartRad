@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+@section Styles {
+    <style>
+        .text-content {
+            width:64%;
+        }
+
+        .text-content a {
+            color:black;
+        }
+
+        .professor-img {
+
+        }
+    </style>
+}
+<h1 class="mb-4 mt-5">About</h1>
+
+<div class="d-flex flex-row justify-content-between">
+    <div class="text-content">
+        <p>
+            DartRad was started in 2020 at the Geisel School of Medicine at Dartmouth.
+            Our mission is to create a free radiology curriculum easily accessible to all.
+            By following us on social media, we hope that our short, 
+            less-than-five-minute quizzes will guide you throughout a complete basic radiology curriculum throughout the year.
+        </p>
+        <p>
+            Our curriculum is based on the Oxford American Handbook of Radiology, written by Petra J. Lewis, MBBS, and Nancy J. McNulty, MD.
+            <a href="https://www.amazon.com/American-Handbook-Radiology-Handbooks-Medicine/dp/0199744130">It is available for purchase here</a>.
+        </p>
+        <p>A free resource we recommend to brush up on basic radiology and anatomy can be found <a href="http://anatomy.host.dartmouth.edu/">here</a> .</p>
+        <p>
+            Special acknowledgement to the Geisel medical students for their work on this project.
+            DartRad could not have been developed without Dennis Dwan and William Boyce, who designed and developed the website.
+        </p>
+        <p>
+            Finally, we thank medical student authors from all over the country. Their case contributions continually enrich this website.
+            
+        </p>
+        <p class="text-accent">Current DartRad Student Directors are Harun Sugito and Faraz Farhadi.</p>
+    </div>
+    <div class="professors-info-container">
+        <div class="d-flex flex-column align-items-end">
+            <img class="professor-img" src="/assets/img/professor1.png" />
+            <img class="professor-img" src="/assets/img/professor2.png" />
+        </div>
+    </div>
+</div>

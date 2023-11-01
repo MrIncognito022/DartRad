@@ -1,0 +1,15 @@
+﻿@model QuizResultViewModel
+@{
+    ViewBag.Title = "Quiz Result";
+    ViewBag.PublicMode = true;
+}
+
+<div class="container">
+    <h2 class="text-center">Result</h2>
+    <hr />
+    <div class="text-center">
+          <p class="fw-bold"> @Model.QuizTitle</p>
+    <p>Score: <span class="fw-bold"> @Model.Score</span></p>
+    </div>
+  
+</div>

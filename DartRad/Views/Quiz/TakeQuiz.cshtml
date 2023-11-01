@@ -1,0 +1,218 @@
+﻿@model PublicQuizViewModel
+@{
+    ViewData["Title"] = "Take Quiz";
+    ViewBag.PublicMode = true;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dragula/dist/dragula.min.css">
+    <style>
+
+        .card {
+           background-color: #F8F8F8;
+           border:none;
+        }
+
+        .card-body {
+            padding:15px 25px;
+        }
+
+        #questionsDiv {
+            background-color: #ECECEC;
+            padding:5px 15px;
+            margin-bottom:20px;
+            font-size:30px;
+            color: #636363;
+        }
+
+            #questionsDiv p {
+                margin-bottom:0px;
+            }
+       
+        .answer-count-info {
+            padding-bottom: 5px;
+            font-size: small;
+        }
+
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .answer-list {
+        }
+
+        .answer-container {
+            background-color: #ededed;
+            margin-bottom: 10px;
+        }
+
+        .answer-container {
+            padding: 10px;
+            border-radius: 5px
+        }
+
+            .answer-container:not(.answer-container-active):hover {
+                background-color: #98cfb5;
+                cursor: pointer;
+            }
+
+            .answer-container:active {
+                background-color: #198754;
+               /* color: white;*/
+            }
+
+        .answer-container-active {
+            background-color: #198754;
+            color: white;
+        }
+
+        .form-check-input:checked {
+            background-color: #98cfb5;
+            color: white;
+        }
+        /*Override Existing Styling*/
+        .form-check .form-check-input {
+            float: none !important;
+            margin-left: 0
+        }
+        .buttons-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: end;
+        }
+        #left-container, #right-container {
+            border: 2px solid black;
+            padding: 20px
+        }
+        .draggable {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 5px;
+            background-color: #eaeaea;
+            border-radius: 5px;
+            justify-content:center;
+        }
+        .draggable-single {
+            display: flex;
+            padding: 5px;
+            margin-bottom: 5px;
+            background-color: #eaeaea;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #rightContainer .draggable {
+            cursor: pointer;
+        }
+        .dragging {
+            background-color: #ffc107;
+            /* Add any other styles to highlight the item */
+        }
+        .drag-column {
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid black;
+        }
+        .w-48 {
+            width: 48%;
+        }
+        p {
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -ms-word-break: break-all;
+            word-break: break-all;
+            word-break: break-word;
+        }
+        .card {
+            width:100%;
+        }
+    </style>
+    <style>
+        #imgPreviewDiv {
+            width: 100%;
+            height: 300px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size:contain;
+            cursor: pointer;
+        }
+
+        .hotspot-answer-selection-image-container {
+            object-fit: contain;
+            padding: 2px;
+            /*border: 1px solid black;*/
+        }
+
+            .hotspot-answer-selection-image-container img {
+                width: 100%;
+                height: 100%;
+                cursor: crosshair;
+            }
+
+        
+    </style>
+}
+
+<input type="hidden" value="@ViewBag.QuizId" id="quizId" />
+
+<h2 class="text-center" id="quizTitle"></h2>
+<h6 class="text-center text-accent" id="quizDescription"></h6>
+
+<div class=" quiz-container mt-5 d-flex justify-content-center flex-column align-content-center align-items-center ">
+
+    <div class="card" >
+       
+        <div class="card-body" id="quizBody">
+            <p class="answer-count-info">Question <span id="currentQuestionNumber">0</span> of <span id="totalQuestionsCount">0</span></p>
+
+            <div id="questionsDiv">
+                <p class="question-text"></p>
+            </div>
+           <div id="answerDiv" class="answer-list " >
+                <p class=""><i class="fa fa-search-plus"></i> Click the image to enlarge</p>
+                <div id="imgPreviewDiv" >
+                </div>
+                <input  type="hidden" id="clickedArea"/>
+            </div>
+            <div class="buttons-container">
+                <button type="button" class="btn-accent-pill" id="btnNext">Next</button>
+            </div>
+        </div>
+        <div class="card-body" id="resultsDiv">
+            <h3 class="text-center" id="resultStr"></h3>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="imgAreaSelectModal" aria-hidden="true" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="answerModalLabel">Select Area on the Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center" >
+               
+                <div class="hotspot-answer-selection-image-container" >
+                    <img id="hotspot-answer-selection-image">
+
+                </div>
+                
+            </div>
+            <div class=" modal-footer">
+                <button class="btn btn-primary btn-sm" id="btnImageSelectionFinalize">Finalize</button>
+
+            </div>
+        </div>
+     
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
+
+    <script type="module" asp-append-version="true" src="/js/public/takequiz.js"></script>
+
+}

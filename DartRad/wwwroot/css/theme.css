@@ -1,0 +1,476 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width:1100px;
+    padding:0px
+}
+
+h1 {
+    font-family: 'Outfit', sans-serif;
+    color: #6FBA8A;
+    font-weight: 700;
+    font-size: 45px;
+}
+
+h2 {
+    font-family: 'Outfit', sans-serif;
+    color: #6FBA8A;
+    font-weight: 700;
+    font-size: 35px;
+}
+
+p {
+    font-size: 20px;
+}
+
+a {
+    color: #6FBA8A;
+    font-size:18px;
+}
+
+    a:hover, a:active {
+        color: #345f43
+    }
+
+.text-accent {
+    color: #6FBA8A;
+}
+
+.btn-accent {
+    color: white;
+    background-color: #6FBA8A;
+    font-weight:400;
+    padding: 10px 30px;
+    border:0;
+    border-radius:4px;
+    letter-spacing:1px;
+    text-decoration:none;
+}
+
+    .btn-accent:hover {
+        color: white;
+        background-color: #3a6449;
+    }
+
+.btn-accent-danger {
+    color: white;
+    background-color: #BE262F;
+    font-weight: 400;
+    padding: 10px 30px;
+    border: 0;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-size:16px;
+    display:inline-block;
+}
+
+    .btn-accent-danger:hover {
+        color: white;
+        background-color: #6c1117;
+    }
+
+    .inline-form {
+        background-color: #F2F2F2;
+        padding: 20px 20px;
+        font-size: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* x-offset, y-offset, blur radius, color */
+    }
+
+    .inline-form input {
+        border: 0;
+        accent-color: white;
+        width: 51%;
+        height: 32px;
+        border-radius: 4px;
+    }
+
+    .inline-form select {
+        border: 0;
+        accent-color: white;
+        width: 51%;
+        height: 32px;
+        border-radius: 4px;
+    }
+
+        .inline-form input:active {
+            outline: none !important;
+            border: 0 !important;
+        }
+
+        .inline-form input:focus {
+            outline: none !important;
+            border: 0 !important;
+        }
+
+    .inline-form .input-pair {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+.inline-form :last-child {
+    margin-bottom: 0px;
+}
+
+
+.app-logo {
+    width: 160px;
+    height: 60px;
+}
+
+.app-nav {
+    padding-top: 30px !important;
+}
+
+.app-nav-link {
+    font-weight:700;
+    text-decoration:none ;
+    margin-left:30px;
+}
+
+.app-dropdown {
+    position:relative;
+    display:inline-block;
+}
+
+    .app-dropdown:hover .app-nav-dropdown-items {
+        display:block;
+    }
+
+.app-nav-dropdown-items {
+    display: none;
+    position: absolute;
+    min-width: 300px;
+    z-index: 1;
+    left:20px;
+    top:25px;
+}
+.app-nav-dropdown-items ul {
+    list-style-type: none;
+    padding:5px 10px;
+}
+
+    .app-nav-dropdown-items li a {
+        text-decoration: none;
+        font-weight: 700;
+        font-size:20px;
+        margin-top:5px;
+    }
+
+.app-nav-button {
+    width: 170px;
+    height: 60px;
+    background-color: #6FBA8A;
+    display: inline-block;
+    right: 20px;
+    top: 20px;
+    text-align: center;
+    color: #595959;
+    text-decoration:none;
+    padding:15px 20px;
+    font-weight:700;
+    border-radius:5px;
+    margin-left:80px;
+}
+
+.user-profile-img {
+    width:45px;
+}
+
+.app-nav-link-button {
+    border: none;
+    background-color: transparent;
+    color: #6FBA8A;
+    font-size:20px;
+    font-weight:600;
+}
+
+.dashboard-img-button {
+    display: flex;
+    flex-direction: column;
+    max-width: 165px
+}
+
+.dashboard-img-button--img-container {
+    width: 165px;
+    height: 128px;
+    border: none;
+    background-color: #F2F2F2;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 6px 2px 0px rgba(0, 0, 0, 0.1);
+    margin-bottom:20px;
+}
+
+.dashboard-img-button--img {
+  /*  width:85px;
+    height:85px;*/
+}
+.link-sm {
+    text-decoration:none;
+    font-size:14px;
+    text-align:center;
+    letter-spacing:1px;
+}
+
+
+.btn-accent-pill {
+    color: white;
+    background-color: #6FBA8A;
+    font-weight: 400;
+    padding: 10px 30px;
+    border: 0;
+    border-radius: 25px;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+    .btn-accent-pill:hover {
+        color: white;
+        background-color: #3a6449;
+    }
+
+
+.app-card {
+    border-radius: 25px;
+    width: 250px;
+    height: 350px;
+    background-color: #F8F8F8;
+    padding: 20px 20px 15px 20px;
+    box-shadow: 0px 4px rgba(0,0,0,0.1);
+}
+
+.app-card-img {
+    width:70px;
+    align-self:center;
+}
+
+.app-card p {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+.app-card-title {
+    font-size: 15px !important;
+    font-weight: 600;
+}
+
+.app-card label {
+    color: #636363;
+    font-weight: 600;
+}
+
+.quiz-img {
+    width: 82px;
+    height: 82px;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.flex-gap {
+    gap: 33px
+}
+
+.app-card-inner-content * {
+    display: block;
+    font-size: 14px;
+    padding-left: 10px;
+    margin-bottom: 2px;
+}
+
+.app-card-btn {
+    background-color: #EFD781;
+    min-width: 154px;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+    padding: 10px 18px;
+    border-radius: 10px;
+}
+
+thead, thead tr, thead td, th {
+    border-style: hidden !important;
+}
+
+.table {
+    vertical-align: middle;
+   
+}
+
+th, td {
+    text-align: center;
+}
+
+.card-table {
+    min-height: 536px;
+}
+
+.card-table table {
+    border-collapse: separate;
+    border-spacing: 0 16px;
+}
+
+.card-table tr td {
+    border: 1px solid transparent;
+    transition: all ease 0.3s;
+    padding: 5px;
+}
+
+    .card-table tr td:first-child {
+        border-right: 0px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .card-table tr td:last-child {
+        border-left: 0px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .card-table tr td:not(:first-child, :last-child) {
+        border-left: 0px;
+        border-right: 0px;
+    }
+
+
+
+/*  tr:hover td:first-child {
+            border-color: black;
+            border-right: 0px;
+        }
+
+        tr:hover td:last-child {
+            border-color: black;
+            border-left: 0px;
+        }
+
+        tr:hover td:not(:first-child, :last-child) {
+            border-color: black;
+            border-left: 0px;
+            border-right: 0px;
+        }
+       */
+
+tbody td {
+    background-color: #F8F8F8 !important;
+    box-shadow: 0px 3px 0px 0px rgba(0,0,0,0.1) !important;
+}
+
+td > .btn-action {
+    padding: 7px 15px;
+}
+
+td > .btn-action-danger {
+    padding: 7px 15px;
+    background-color: #BE262F;
+    color:white;
+}
+
+    td > .btn-action-danger:hover {
+        background-color: #6c1117;
+    }
+
+td > .app-card-img {
+    margin-right: 10px;
+    width: 30px;
+}
+
+
+.app-data-list {
+    position: relative;
+}
+
+.card-data {
+    margin-top: 40px;
+}
+
+.app-pagination {
+    /* position:relative;
+                    left:50%;
+                    bottom:00px;
+                    transform: translate(-50%, 0%);*/
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pg-btn {
+    border: none;
+    background-color: transparent;
+    color: #636363;
+    font-size: 18px;
+}
+
+.btn-nav-left {
+    margin-right: 20px;
+}
+
+.btn-nav-right {
+    margin-left: 20px;
+}
+
+.pg-btn i {
+    color: #6FBA8A;
+    margin: 0 5px;
+}
+
+.pg-btn-active {
+    margin: 0 10px;
+    color: #FDFDFD;
+    background-color: #6FBA8A;
+    padding: 10px 20px;
+    border-radius: 45%;
+}
+
+.pg-btn:disabled {
+    cursor: not-allowed;
+}
+
+.generic-filters {
+}
+
+.fitler-btn {
+    border: none;
+    background-color: transparent;
+    color: #636363;
+    font-size: 18px;
+    padding: 0;
+}
+
+    .fitler-btn i {
+        font-size: 30px;
+    }
+
+.filter-select {
+    padding: 5px 20px;
+    width: 150px;
+}
+
+.card-table tbody tr td:first-child {
+    text-align: left;
+    padding-left: 35px;
+}
+
+
+
+.app-form-control {
+    background-color: #F8F8F8;
+    box-shadow: 0px 4px 2px rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 5px;
+}

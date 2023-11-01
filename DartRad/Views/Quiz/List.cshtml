@@ -1,0 +1,81 @@
+﻿@model List<PublicQuizListViewModel>
+
+@{
+    ViewBag.Title = "Quizzes";
+    ViewBag.PublicMode = true;
+}
+
+@section Styles {
+    <style>
+        .app-card {
+            border-radius: 25px;
+            width: 250px;
+            height: 350px;
+            background-color: #F8F8F8;
+            padding: 20px 20px 15px 20px;
+        }
+            .app-card p {
+                font-size: 14px;
+                margin-bottom: 0px;
+            }
+        .app-card-title {
+            font-size: 15px !important;
+            font-weight: 600;
+        }
+        .app-card label {
+            color: #636363;
+            font-weight: 600;
+        }
+        .quiz-img {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+        .flex-gap {
+            gap: 33px
+        }
+        .app-card-inner-content * {
+            display: block;
+            font-size: 14px;
+            padding-left: 10px;
+            margin-bottom: 2px;
+        }
+        .app-card-btn {
+            background-color: #EFD781;
+            width: 154px;
+            text-align: center;
+            margin: 0 auto;
+            font-weight: 600;
+            text-decoration: none;
+            color: black;
+            font-size: 12px;
+            padding: 10px 18px;
+            border-radius: 10px;
+        }
+    </style>
+}
+
+<div class="container my-5">
+    <h1 class="fw-bold mb-5">Quizzes</h1>
+
+    <div class="d-flex flex-row flex-wrap flex-gap">
+        @foreach (var quiz in Model)
+        {
+            <div class="app-card d-flex flex-column justify-content-between">
+                <img src="@quiz.ImageUrl" class="quiz-img">
+                <p class="text-center app-card-title">@quiz.Title</p>
+                <div class="app-card-inner-content">
+                    <label>Created By:</label>
+                    <span>@quiz.CreatedBy</span>
+                    <label>Created At:</label>
+                    <span>@quiz.CreatedAt</span>
+                </div>
+                <a title="Details" asp-action="TakeQuiz" asp-route-id="@quiz.Id" class="app-card-btn">
+                    Take Quiz
+                </a>
+            </div>
+        }
+    </div>
+</div>
+

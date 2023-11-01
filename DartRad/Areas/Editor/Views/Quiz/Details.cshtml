@@ -1,0 +1,306 @@
+﻿@using DartRad.Areas.ContentCreator.Models;
+@model PendingQuizDetailsViewModel
+@{
+    ViewBag.Title = "Manage Quiz";
+}
+
+@section Styles {
+    <style>
+        .bg-gray {
+            background-color: whitesmoke
+        }
+
+        .preview-container {
+            max-width: 100%;
+            max-height: 300px;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .preview-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .quiz-img {
+            object-fit: contain;
+            width:100%;
+            height:250px
+        }
+    </style>
+
+}
+
+<h2 class="my-4">Review Quiz</h2>
+
+<div class="row">
+    <div class="col-md-8 border p-3">
+        <div class="d-flex flex-row justify-content-between">
+            <dl class="row">
+                    <dt class="col-sm-4">Title:</dt>
+                    <dd class="col-sm-8">@Model.Title</dd>
+
+                    <dt class="col-sm-4">Clinical Scenario:</dt>
+                    <dd class="col-sm-8">@Model.ClinicalScenario</dd>
+
+                    <dt class="col-sm-4">Created At:</dt>
+                    <dd class="col-sm-8">@Model.CreatedAt.ToString("g")</dd>
+
+                    <dt class="col-sm-4">Created By:</dt>
+                    <dd class="col-sm-8">@Model.CreatedBy</dd>
+
+                    <dt class="col-sm-4">Updated At:</dt>
+                    <dd class="col-sm-8">@(Model.UpdatedAt == null ? "-" : Model.UpdatedAt.Value.ToString("g"))</dd>
+                </dl>
+                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+            <img src="@Model.ImageUrl" class="quiz-img" />
+                }
+
+        </div>
+       
+        <br />
+        <form method="post" asp-action="Approve">
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <button type="submit" class="btn btn-success">Approve</button>
+            <a asp-action="index" class="btn btn-secondary"> Back to List</a>
+        </form>
+        <hr />
+        <form asp-action="Reject">
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <div class="form-group">
+                <label for="Note">Note:</label>
+                <textarea name="Note" id="Note" class="form-control custom-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger mt-2">Reject</button>
+        </form>
+    </div>
+    <div class="col-md-4 p-3 pt-0">
+
+       
+        <h4>Notes</h4>
+        @if (Model.QuizNotes.Any())
+        {
+            <ul class="list-group">
+                @{
+                    int index = 1;
+                }
+                @foreach (var note in Model.QuizNotes.OrderByDescending(x => x.CreatedAt))
+                {
+                    index++;
+                    <div class="border px-2 my-1 @(index % 2 == 0 ? "bg-gray" : "")">
+                        <div class="d-flex flex-row justify-content-between">
+                            <strong class="text-primary">@note.AdminName</strong>
+                            <small>@note.CreatedAt.ToString("g")</small>
+                        </div>
+
+                        <p>@note.Note</p>
+                    </div>
+                }
+            </ul>
+
+        }
+        else
+        {
+            <p>There are no notes for this quiz.</p>
+        }
+
+
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12 border p-3">
+        @if (Model.Questions.Any())
+        {
+            <h3>Questions</h3>
+            int i = 0;
+            @foreach (var q in Model.Questions.Where(x => x.QuestionType != "True False"))
+            {
+
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <div class="d-flex flex-row justify-content-between">
+                            <div>
+                                <h5 class="card-text mb-0">@q.QuestionText</h5>
+                                <small class="card-subtitle mb-2 text-muted">@q.QuestionType</small>
+                            </div>
+                            <div>
+                                @if (q.QuestionType == "Hotspot")
+                                {
+                                    <button role="button" data-bs-toggle="collapse" data-bs-target="#imgPreview_@q.Id" aria-expanded="false" aria-controls="multiCollapseExample2"
+                                class="btn btn-sm btn-primary">
+                                        View Uploaded Image
+                                    </button>
+                                }
+
+                                <button role="button" data-bs-toggle="collapse" data-bs-target="#answerList_@q.Id" aria-expanded="false" aria-controls="multiCollapseExample2"
+                                class="btn btn-sm btn-primary">
+                                    <i class="fa fa-list-ul"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class=" collapse multi-collapse" id="imgPreview_@q.Id">
+                        <div class="preview-container">
+                            <img class="preview-img" src="@q.HotspotQuestionImage">
+                        </div>
+                    </div>
+
+                    <div class=" collapse multi-collapse " id="answerList_@q.Id">
+                        <div class="d-flex flex-column  mt-2 mb-2 mx-3">
+                            <div>
+                                <div class="fw-bold fs-6 card-subtitle mb-2 mr-1" style="display:inline"> Explanation </div>
+                                <p>@q.AnswerExplanation</p>
+                            </div>
+
+                            <div>
+                                <div class="fw-bold fs-6 card-subtitle mb-2 mr-1" style="display:inline"> Answers </div>
+                            </div>
+                        </div>
+                        <ol class="answer-list">
+
+                            @{
+                                var answerList = new List<AnswerViewModel>();
+                                if (q.QuestionType == "Multiple Choice")
+                                {
+                                    answerList = q.AnswerMultipleChoices;
+                                }
+                                else if (q.QuestionType == "Short Answer")
+                                {
+                                    answerList = q.AnswerShortAnswer;
+                                }
+                                else if(q.QuestionType == "Sequence")
+                                {
+                                    answerList = q.AnswerSequence.Select(x => new AnswerViewModel
+                                    {
+                                        AnswerText = x.AnswerText
+                                    }).ToList();
+                                }
+                                @foreach (var ans in answerList)
+                                {
+                                    var badgeSpan = ans.IsCorrect ? "<span class=\"badge bg-success\">Correct</span>" : "";
+                                    <li class="card-text py-1 border-bottom">
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <div class="">
+                                                @ans.AnswerText
+
+                                            </div>
+                                            @Html.Raw(badgeSpan)
+                                        </div>
+
+                                    </li>
+                                }
+
+                                if (q.QuestionType == "Matching")
+                                {
+                                    foreach (var ans in q.AnswerMatching)
+                                    {
+                                        <li class="card-text">
+                                            <div class="my-3">
+                                                <div class="row" style="width:100%;margin-left:5px;">
+                                                    <div class="col-5 left-answer">
+                                                        @ans.LeftSide
+                                                    </div>
+                                                    <div class="col-1 right-arrow">
+                                                        <i class="fa fa-long-arrow-right fa-2x"></i>
+                                                    </div>
+                                                    <div class="col-5 right-answer text-end">
+                                                        @ans.RightSide
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+                                }
+                                if (q.QuestionType == "Hotspot")
+                                {
+                                    @foreach (var ans in q.AnswerHotspot)
+                                    {
+                                        string area = $"{ans.X},{ans.Y},{ans.Width},{ans.Height}";
+                                        <li class="card-text py-1 border-bottom">
+                                            <div class="d-flex flex-row justify-content-between">
+                                                <canvas id="hotspot_ans_@ans.Id" data-question-id="@q.Id" data-area="@area"></canvas>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                            }
+
+                        </ol>
+                    </div>
+                </div>
+                i++;
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(async function () {
+            var allCanvases = $('canvas');
+            let previousImg = null; // for preloading
+            let previousQuestionId = -1;
+            for (let i = 0; i < allCanvases.length; i++) {
+                let v = allCanvases[i];
+                let attrStr = $(v).attr('data-area').split(',');
+                var area = {
+                    x: attrStr[0],
+                    y: attrStr[1],
+                    width: attrStr[2],
+                    height: attrStr[3],
+                }
+              
+                let questionId = $(v).attr('data-question-id');
+
+                let img = $('#imgPreview_' + questionId).find('img').attr('src');
+
+                var originalImage = await loadImage(img);
+                if (previousImg == null) {
+                    previousImg = originalImage;
+                    previousQuestionId = questionId;
+                }
+
+                if (originalImage.width > 1100) {
+                    originalImage.width = 1100;
+                }
+
+                var originalWidth = originalImage.width;
+                var scaleFactor = originalImage.naturalWidth / originalWidth;
+
+                var cropX = area.x; 
+                var cropY = area.y; 
+                var cropWidth = area.width; 
+                var cropHeight = area.height;
+
+                 var scaledX = cropX * scaleFactor;
+                var scaledY = cropY * scaleFactor;
+                var scaledWidth = cropWidth * scaleFactor;
+                var scaledHeight = cropHeight * scaleFactor;
+
+                var canvas = v;
+                canvas.width = cropWidth;
+                canvas.height = cropHeight;
+                var context = canvas.getContext('2d');
+
+                context.drawImage(originalImage, scaledX, scaledY, scaledWidth, scaledHeight, 0, 0, cropWidth, cropHeight);
+            }
+
+           
+
+        });
+        const loadImage = src =>
+                new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.onerror = reject;
+                    img.src = src;
+                })
+                ;
+    </script>
+}

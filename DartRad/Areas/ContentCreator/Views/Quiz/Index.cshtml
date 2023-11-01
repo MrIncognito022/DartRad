@@ -1,0 +1,91 @@
+﻿@model IEnumerable<QuizListViewModel>
+@using DartRad.Extensions
+@{
+    ViewBag.Title = "Quizzes";
+
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="fw-bold">Quizzes</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="Quiz" asp-action="Create" class="btn btn-primary"><i class="fa fa-plus"></i> Create Quiz</a>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <form method="get" class="row g-2">
+                <div class="col-md">
+                    <label for="filter" class="form-label">Filter by Status:</label>
+                    <select id="filter" name="filter" asp-items="ViewBag.StatusList" class="form-select">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-auto align-self-end">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-4">
+        @foreach (var quiz in Model)
+        {
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">@quiz.Title</h5>
+                        <p class="card-subtitle">Created At: @quiz.CreatedAt.ToString()</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Category: @quiz.Category</p>
+                        <p class="card-text">
+                            Status:
+                            @if (quiz.Status == QuizStatus.Draft.ToFriendlyString())
+                            {
+                                <span class="badge bg-secondary">@quiz.Status</span>
+                            }
+                            else if (quiz.Status == QuizStatus.WaitingForApproval.ToFriendlyString())
+                            {
+                                <span class="badge bg-warning">@quiz.Status</span>
+                            }
+                            else if (quiz.Status == QuizStatus.Approved.ToFriendlyString())
+                            {
+                                <span class="badge bg-success">@quiz.Status</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">@quiz.Status</span>
+                            }
+                        </p>
+                        <p class="card-text">Approved By: @quiz.ApprovedBy</p>
+
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Quiz" title="Details" asp-action="Details" asp-route-id="@quiz.Id" class="btn btn-info text-white"><i class="fa fa-info-circle"></i></a>
+                        <a asp-controller="Quiz" title="Questions" asp-action="Questions" asp-route-id="@quiz.Id" class="btn btn-primary">
+                            <i class="fa fa-question-circle"></i>
+                        </a>
+                        @if (quiz.Status != QuizStatus.Approved.ToFriendlyString())
+                        {
+                            <a asp-controller="Quiz" title="Edit" asp-action="Edit" asp-route-id="@quiz.Id" class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/js/quiz/index.js" asp-append-version="true"></script>
+}

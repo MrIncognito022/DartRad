@@ -1,0 +1,160 @@
+﻿@using DartRad.Utilities;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DartRad</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css"  />
+    <link rel="stylesheet" href="~/DartRad.styles.css"  />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="/css/theme.css" asp-append-version="true" />
+
+    <style>
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            /*background-color: #f5f5f5;*/
+        }
+       /* .vertical-divider {
+            padding-top:5px
+        }
+        .vertical-divider .vr {
+            height:30px
+        }*/
+        
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+       <!-- #region Old  -->
+          @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DartRad</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Quiz" asp-action="List">Public Quiz</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Subscribe">Subscribe</a>
+                            </li>
+                        </ul>
+                    }
+                    
+                    @if (ViewBag.PublicMode == null)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+
+
+                            @if (User.IsInRole(AppRoles.SuperAdmin))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Admins" asp-action="Index">Admins</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(AppRoles.Editor))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Editor" asp-controller="ContentCreators" asp-action="Index">Content Creators</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Editor" asp-controller="Quiz" asp-action="Index">Quiz List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Editor" asp-controller="Subscribers" asp-action="Index">Subscribers</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(AppRoles.ContentCreator))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="ContentCreator" asp-controller="Quiz" asp-action="Index">Quiz List</a>
+                                </li>
+                            }
+                           
+                           
+
+                        </ul>
+                        <ul class="navbar-nav">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @User.Identity.Name
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li class="">
+                                            <a class="dropdown-item" asp-action="Profile" asp-controller="Account">Profile</a>
+                                        </li>
+                                        <li class="dropdown-divider">
+
+                                        </li>
+                                        <li class="">
+                                            <form method="post" asp-area="" asp-controller="Auth" asp-action="Logout">
+                                                <button type="submit" class="dropdown-item">
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="AdminLogin">Editor Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="SuperAdminLogin">Super Editor Login</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                  
+
+                </div>
+            </div>
+        </nav>*@
+       <!-- #endregion-->
+    
+       <partial name="_NavbarPartial"></partial>
+
+    </header>
+    <div class="container " style="min-height:82vh;margin-top:6rem">
+        <main role="main" class="pb-3 ">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="mb-5 footer text-muted text-center fixed-bottom mt-auto">
+        <div class="container p-3">
+            &copy; DartRad All rights Reserved.
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

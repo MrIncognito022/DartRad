@@ -1,0 +1,17 @@
+﻿
+
+form {
+    width: 442px;
+    margin: 0 auto;
+}
+
+button {
+    margin: 0 auto;
+    width: 313px;
+    display: block;
+}
+
+form a {
+    font-size: 12px;
+    text-decoration: none;
+}

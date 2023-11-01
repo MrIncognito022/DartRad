@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Landing";
+}
+@section Styles {
+    <style>
+        .intro-heading-container {
+            width: 57%;
+        }
+
+        .intro-text-container {
+            width: 47%;
+        }
+
+        .btn-getStarted {
+            width: 350px;
+        }
+
+        .social-icon {
+            width: 45px;
+            margin-right: 5px;
+        }
+
+        body {
+            background-image: url('/assets/img/landing-bg.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+}
+
+<div class="mt-5 pt-5">
+    <div class="intro-heading-container">
+        <h1>RAD Education for Everyone Everywhere</h1>
+    </div>
+
+    <div class="intro-text-container mt-5">
+        <p>
+            Welcome to DartRad! This is a free radiology curriculum based on the Oxford American Handbook of Radiology, by Petra J. Lewis,
+            MBBS and Nancy J. McNulty, MD.
+        </p>
+        <p>
+            Short cases posted on Mondays and Wednesdays will guide you through a complete course throughout the year!
+        </p>
+    </div>
+
+    <button class="btn-accent btn-getStarted mt-3 mb-4">GET STARTED</button>
+
+    <p class="mb-0">Follow us to stay updated or <a asp-action="Subscribe" asp-area="" asp-controller="Home">subcribe</a> to our</p>
+    <p> newsletter.</p>
+
+    <div class="d-flex flex-row ">
+        <a href="https://www.facebook.com/Dartmouth.Radiology.Education/"><img class="social-icon" src="/assets/img/Facebook.png" /></a>
+        <a href="https://twitter.com/dart_rad"><img class="social-icon" src="/assets/img/Google.png" /></a>
+        <a href="https://www.instagram.com/dart.rad/"> <img class="social-icon" src="/assets/img/Twitter.png" /></a>
+    </div>
+</div>

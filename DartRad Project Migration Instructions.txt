@@ -1,0 +1,8 @@
+DartRad Project Instructions
+
+1. Run Migrations
+	1.1 In visual studio top menu click Tools -> Nuget Package Manager -> Package Manger Console
+	1.2 Run the command inside the package manager console window 'Update-Database'
+
+2. Application Testing
+	2.1 Super Admin Credentials [ email:info@somuchheart.com , password:IAmDRSuperAdmin123! ]

@@ -1,0 +1,29 @@
+﻿@model ContentCreatorInviteViewModel
+@{
+    ViewBag.Title = "Invite Content Creator";
+}
+@section Styles {
+    <style>
+        .app-form {
+
+        }
+
+
+    </style>
+}
+
+<h1>Invite Content Creator</h1>
+
+<hr />
+
+<form asp-controller="ContentCreators" asp-action="Invite" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control app-form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+   
+    <button type="submit" class="btn-accent">Invite</button>
+    <a asp-controller="ContentCreators" asp-action="Index" class="btn-accent-danger">Cancel</a>
+</form>

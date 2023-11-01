@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "Admins";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<h1>Editor Management</h1>
+
+<div class=" my-5">
+
+    <div class="app-data-list mt-5">
+        <div class="filters">
+            <div class="d-flex flex-row justify-content-between">
+                <div class="generic-filters d-flex flex-row justify-content-between align-items-center">
+                    <select class="filter-select form-select">
+                        <option value="" selected> Newest </option>
+                    </select>
+                    <div class="ms-5">
+                        <button class="me-2 fitler-btn" title="Switch to Table View" onclick="switchToTable()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+
+                        <button class="fitler-btn" title="Switch to Grid View" onclick="switchToGrid()">
+                            <i class="fas fa-th"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div>
+                    <a asp-controller="Admins" asp-action="Create" class="btn-accent"><i class="fa fa-plus"></i> Add Editor</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-data">
+            <div class="d-flex flex-row flex-wrap flex-gap card-list">
+            </div>
+            <div class="card-table ">
+            </div>
+        </div>
+
+        <div class="app-pagination">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" asp-append-version="true">
+        var pg; // instance holder
+        $(document).ready(() => {
+            pg = new Pagination('.app-data-list', "AjaxEditors", displayCardData, displayTableData);
+
+        });
+
+        function displayCardData(data) {
+
+            var html = '';
+
+            $.each(data, (i, v) => {
+                html += `
+                                        <div class="app-card d-flex flex-column justify-content-between">
+                                            <img src="/assets/img/app-user-placeholder.png" class="app-card-img">
+                                            <p class="text-center app-card-title">${v.name}</p>
+                                            <div class="app-card-inner-content">
+                                                <label>Email:</label>
+                                                <span>${v.email}</span>
+                                                <label>Member Since:</label>
+                                                <span>${v.createdAt}</span>
+                                            </div>
+                                            <a href="Edit?id=${v.id}" class="app-card-btn">
+                                                              <i class="fas fa-pen"></i>
+                                                                Edit Editor
+                                                 </a>
+                                          
+                                        </div>`
+            });
+
+            $('.card-list').html(html);
+
+        }
+
+        function displayTableData(data) {
+
+
+            var rows = '';
+
+            $.each(data, (i, v) => {
+                rows += `
+                                <tr>
+                                    <td> <img src="/assets/img/app-user-placeholder.png" class="app-card-img">${v.name}</td>
+                                    <td>${v.email}</td>
+                                    <td>${v.createdAt}</td>
+                                    <td class="text-center">
+                                                <a href="Edit?id=${v.id}" class="app-card-btn btn-action">
+                                            <i class="fas fa-pen"></i>
+                                            Edit Editor
+                                        </a>
+                                    </td>
+                                 </tr>
+                                `;
+            });
+
+            var html = `
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Member Since</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="mt-3">
+                                    ${rows}
+                                </tbody>
+                             </table>`;
+
+            $('.card-table').html(html);
+        }
+
+        function gotoPage(pageNumber) {
+            pg.gotoPage(pageNumber);
+        }
+
+        function switchToGrid() {
+            pg.switchView(ViewTypes.Card);
+        }
+
+        function switchToTable() {
+            pg.switchView(ViewTypes.Table);
+        }
+
+    </script>
+}

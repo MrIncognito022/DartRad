@@ -1,0 +1,17 @@
+﻿.dashboard-buttons-container {
+    margin: 0 auto;
+    margin-top: 60px;
+    display: flex;
+    flex-direction:revert;
+    justify-content:center;
+}
+
+    .dashboard-buttons-container a {
+        display: block;
+        margin-right: 60px;
+        font-weight:600;
+    }
+
+    .dashboard-buttons-container a:last-child {
+        margin-right: 0px;
+    }

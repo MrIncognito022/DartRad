@@ -1,0 +1,77 @@
+﻿@using System.Security.Claims;
+@using DartRad.Utilities;
+
+
+<div class="container">
+    <div class="d-flex flex-row justify-content-between app-nav">
+        <!--Logo-->
+        @{
+            string area = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole(AppRoles.SuperAdmin))
+                {
+                    area = "/SuperAdmin";
+                }
+                else if (User.IsInRole(AppRoles.Editor))
+                {
+                    area = "/Editor";
+                }
+                else
+                {
+                    area = "/ContentCreator";
+                }
+            }
+        }
+        <div>
+            <a href="@area/home"> <img src="/assets/img/logo.png" class="app-logo" /> </a>
+        </div>
+
+        <!--Nav Items-->
+        @if (User.Identity.IsAuthenticated == false)
+        {
+            <div>
+                <!--For Authenticated User-->
+                <a class="app-nav-link" asp-action="About" asp-controller="Home" asp-area="">About</a>
+
+                <a class="app-nav-link" href="mailto:dartrad.dhmc@gmail.com,Dennisdwan@gmail.com,petra.lewis@hitchcock.org">Contact Us</a>
+
+                <div class="app-dropdown">
+                    <a class="app-nav-dropdown-link app-nav-link">Login
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+
+                    <div class="app-nav-dropdown-items">
+                        <ul>
+                            <li><a asp-controller="Auth" asp-action="SuperAdmin">Admin Login</a></li>
+                            <li><a asp-controller="Auth" asp-action="Editor">Editor Login</a></li>
+                            <li><a asp-controller="Auth" asp-action="ContentCreators">Content Creator Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a class="app-nav-button" asp-action="List" asp-controller="Quiz" asp-area="">QUIZZES</a>
+
+            </div>
+        }
+        else
+        {
+            <div>
+                <div class="app-dropdown">
+                    <a class="app-nav-dropdown-link app-nav-link">
+                        <img class="user-profile-img" src="/assets/img/app-user-placeholder.png" />
+                        @User.FindFirst(ClaimTypes.Name).Value
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </a>
+
+                    <div class="app-nav-dropdown-items" style="top:40px;left:75px;">
+                        <form class="logout-form" asp-action="Logout" asp-controller="Auth" asp-area="">
+                            <button type="submit" class="app-nav-link-button">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

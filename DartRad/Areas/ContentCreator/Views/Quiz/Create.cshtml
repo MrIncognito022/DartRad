@@ -1,0 +1,84 @@
+﻿@model QuizCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Quiz";
+}
+<h1>Create Quiz</h1>
+<hr />
+@section Styles {
+    <style>
+        img {
+            width:300px;
+            height:300px;
+            object-fit:contain
+        }
+
+    </style>
+}
+
+<form asp-controller="Quiz" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"> 
+         
+    </div>
+   
+    <div class="form-group">
+        <label asp-for="Title">Title:</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="Category"></label>
+        <select asp-for="Category" asp-items="Model.QuizCategories" class="form-select">
+            <option value=""> -- Select</option>
+        </select>
+        <span class="text-danger" asp-validation-for="Category"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ClinicalScenario"></label>
+        <textarea asp-for="ClinicalScenario" class="form-control"></textarea>
+        <span asp-validation-for="ClinicalScenario" class="text-danger"></span>
+    </div>
+    <div class="form-group ">
+        <label asp-for="QuizImage" class="form-label">Quiz Image:</label>
+        <input class="form-control" type="file" asp-for="QuizImage" accept="image/*" onchange="previewImagee(event)">
+        <div id="preview-container">
+            <div class="d-flex flex-column mt-2">
+                <label class="form-label">Preview</label>
+                <img id="previewImage" />
+            </div>
+       </div>
+       
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save me-2"></i>Save</button>
+        <a asp-controller="Quiz" asp-action="Index" class="btn btn-secondary"><i class="fa fa-times me-2"></i>Cancel</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(()=>{
+
+            $('#preview-container').hide();
+        })
+        function previewImagee(event) {
+            const preview = document.getElementById('previewImage');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function () {
+                    preview.src = reader.result;
+                }
+                $('#preview-container').show();
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "#";
+            }
+        }
+    </script>
+}

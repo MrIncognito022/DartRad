@@ -1,0 +1,42 @@
+﻿@section styles {
+    <link rel="stylesheet" href="/css/theme/dashboard.css" />
+    <style>
+        h1 {
+            width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+    </style>
+}
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h1 class="">Editor Dashboard</h1>
+
+<div class="text-center">
+    <div class="dashboard-buttons-container">
+
+        <a asp-action="Index" asp-controller="Quiz" asp-area="Editor" class="dashboard-img-button link-sm">
+            <div class="dashboard-img-button--img-container">
+                <img class="dashboard-img-button--img" src="~/assets/img/cc-dashboard-button-1.png" />
+            </div>
+            Quiz Management
+        </a>
+
+        <a asp-action="Index" asp-controller="ContentCreators" asp-area="Editor" class="dashboard-img-button link-sm">
+            <div class="dashboard-img-button--img-container">
+                <img class="dashboard-img-button--img" src="~/assets/img/admin-dashboard-button-1.png" />
+            </div>
+            Content Creator Management
+        </a>
+
+        <a asp-action="Index" asp-controller="Subscribers" asp-area="Editor" class="dashboard-img-button link-sm">
+            <div class="dashboard-img-button--img-container">
+                <img class="dashboard-img-button--img" src="~/assets/img/editor-dashboard-button-3.png" />
+            </div>
+            Subscribers Management
+        </a>
+    </div>
+</div>

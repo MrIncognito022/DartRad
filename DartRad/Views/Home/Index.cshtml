@@ -1,0 +1,45 @@
+﻿@using DartRad.Utilities;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles {
+    <style>
+        .btn-expanded {
+            width: 210px;
+            height:180px;
+            border-radius: 0;
+            display:flex;
+            justify-content: center;
+            align-items:center
+        }
+
+        .btn-container{
+            width:490px
+        }
+
+
+    </style>
+}
+<h1 class="display-4 text-center">Welcome to DartRad</h1>
+<div class="text-center justify-content-center d-flex">
+   
+    @if (User.IsInRole(AppRoles.ContentCreator))
+    {
+
+        <div class="d-flex flex-row justify-content-around p-3 mt-4 btn-container" >
+            <a asp-action="Create" asp-controller="Quiz" asp-area="ContentCreator" class=" btn btn-outline-dark btn-lg btn-expanded" >Create New Quiz</a>
+            <a asp-action="Index" asp-controller="Quiz" asp-area="ContentCreator" class="btn btn-outline-dark btn-lg btn-expanded">View All Quizzes</a>
+        </div>
+    }
+
+    @if (User.IsInRole(AppRoles.Editor))
+    {
+        <div class="d-flex flex-row justify-content-around p-3 mt-4 gap-2" >
+            <a asp-action="Index" asp-controller="Quiz" asp-area="Editor" class="btn btn-outline-dark btn-lg   btn-expanded">Quiz List</a>
+            <a asp-action="Index" asp-controller="ContentCreators" asp-area="Editor" class="btn btn-outline-dark btn-lg btn-expanded">Content Creators List</a>
+            <a asp-action="Index" asp-controller="Subscribers" asp-area="Editor" class="btn btn-outline-dark btn-lg btn-expanded">Subscribers</a>
+        </div>
+    }
+
+</div>

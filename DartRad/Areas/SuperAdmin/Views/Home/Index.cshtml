@@ -1,0 +1,36 @@
+﻿@section styles {
+        <link rel="stylesheet" href="/css/theme/dashboard.css" />
+        <style>
+            h1 {
+                width: 700px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+        </style>
+}
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h1 class="">Admin Dashboard</h1>
+
+<div class="text-center">
+    <div class="dashboard-buttons-container">
+
+        <a asp-action="Index" asp-controller="Admins" asp-area="SuperAdmin" class="dashboard-img-button link-sm">
+            <div class="dashboard-img-button--img-container">
+                <img class="dashboard-img-button--img" src="~/assets/img/admin-dashboard-button-1.png" />
+            </div>
+            Editor Management
+        </a>
+
+        <a href="#" class="dashboard-img-button link-sm">
+            <div class="dashboard-img-button--img-container">
+                <img class="dashboard-img-button--img" src="~/assets/img/admin-dashboard-button-2.png" />
+            </div>
+           System Settings
+        </a>
+
+    </div>
+</div>

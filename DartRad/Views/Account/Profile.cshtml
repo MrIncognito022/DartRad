@@ -1,0 +1,47 @@
+﻿@model ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+<h1>Profile</h1>
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewBag.SuccessMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-action="Profile">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label for="Name">Name:</label>
+                <input type="text" class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="email" class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Password">Current Password:</label>
+                <input type="password" class="form-control" asp-for="CurrentPassword" />
+                <span asp-validation-for="CurrentPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Password">New Password:</label>
+                <input type="password" class="form-control" asp-for="NewPassword" />
+                <small class="form-text text-muted">Leave empty if you don't want to change your password</small>
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="ConfirmPassword">Confirm Password:</label>
+                <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Update</button>
+        </form>
+    </div>
+</div>

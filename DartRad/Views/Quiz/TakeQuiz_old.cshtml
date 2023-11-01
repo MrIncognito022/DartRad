@@ -1,0 +1,81 @@
+﻿@model PublicQuizViewModel
+@{
+    ViewBag.Title = Model.Title;
+    int questionNumber = 1;
+    ViewBag.PublicMode = true;
+}
+
+@section Styles {
+    <style>
+        .question-text {
+            /*box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.3);*/
+        }
+
+        .answer-container {
+            padding-left:10px;
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/parsley.css" asp-append-version="true" />
+}
+<div class="container">
+    <h1 class="text-center">@Model.Title</h1>
+    <h6 class="text-center text-muted">@Model.ClinicalScenario</h6>
+    <hr />
+    <form id="quizForm" data-parsley-validate>
+        <input type="hidden" id="quizId" value="@Model.Id" />
+        @foreach (var q in Model.Questions)
+        {
+            if (q.QuestionType == "Multiple Choice")
+            {
+                <div class="form-group mb-2" >
+                    <span class="">@questionNumber.</span>
+                    <label class="fw-bold mb-2 question-text">@q.QuestionText</label>
+                   
+                    <div class="answer-container">
+                        @foreach (var ans in q.AnswerMultipleChoices)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="ans_@q.Id" value="@ans.Id"
+                                   data-parsley-multiple="ans_@q.Id"
+                                   required data-parsley-trigger="change"
+                                   data-parsley-errors-container="#radioErrorContainer"
+                                   data-parsley-error-message="Please Select an Answer"
+                                >
+
+                                <label class="form-check-label" for="option1">@ans.AnswerText</label>
+                            </div>
+                        }
+                        <div id="radioErrorContainer" class="mb-2"></div>
+                    </div>
+                   
+                </div>
+            }
+            else if (q.QuestionType == "Open Ended")
+            {
+                <div class="form-group mb-2">
+                    <span class="">@questionNumber.</span>
+                    <label class="fw-bold mb-2 question-text">@q.QuestionText</label>
+                    <div class="answer-container">
+                        <input type="text" name="ans_@q.Id" class="form-control" required data-parsley-trigger="change" data-parsley-error-message="Please Provide an Answer">
+                    </div>
+                </div>
+            }
+
+            questionNumber = questionNumber + 1;
+        }
+
+        @if (Model.Questions.Any())
+        {
+            <div class="mt-5">
+                <hr />
+                <button id="btnSubmit" type="button" class="btn btn-primary">Submit</button>
+            </div>
+        }
+    </form>
+
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript" asp-append-version="true" src="/js/public/publicquiz.js"></script>
+}

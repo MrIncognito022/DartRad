@@ -1,0 +1,45 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+@section Styles {
+    <link rel="stylesheet" href="/css/theme/login.css" />
+}
+
+
+<div class="container">
+   
+    @if (TempData["SuccessMessage"] != null)
+    {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    }
+    <div class="row justify-content-center mt-5">
+        <div class="">
+            <h1 class="text-center mb-4">Editor Login</h1>
+            <form method="post" asp-action="AdminLogin">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="inline-form">
+                    <div class="input-pair">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="">
+                        @*<span asp-validation-for="Email" class="text-danger"></span>*@
+                    </div>
+                    <div class="input-pair">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" type="password" class="">
+                        @*<span asp-validation-for="Password" class="text-danger"></span>*@
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-accent mt-4">SIGN IN</button>
+                <div class="text-center  mt-3">
+                    <a asp-action="ForgotPassword" class="">FORGOT MY PASSWORD</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
